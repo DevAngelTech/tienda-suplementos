@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Suplementos Deportivos</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="icon" type="image/png" href="icono.png"> 
+</head>
+<body>
+
+<header class="ssup">
+    <h1 class="logos">SupleShop</h1>
+    <nav class="navegación">
+        <a href="#productos">Productos</a>
+        <a href="#promos">Promociones</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="estilos carrito">
+        <img src="carrito.png" alt="Carrito" class="icono-carrito">
+        <span class="contador">0</span>
+    </button>
+</header>
+
+<section class="sprin">
+    <h2>Impulsa tu Rendimiento</h2>
+    <p>Suplementos de alta calidad para alcanzar tus metas fitness</p>
+    <button class="estilos">Comprar Ahora</button>
+</section>
+
+<section id="productos" class="productos">
+    <h3>Nuestros productos</h3>
+    <div class="filas">
+        <div class="tarjetas">
+            <img src="proteína gold standard.png" alt="Proteína de suero" />
+            <h4>Proteína de suero</h4>
+            <p class="precios">$899</p>
+            <button class="estilos">Agregar al carrito</button>
+        </div>
+        <div class="tarjetas">
+            <img src="creatina on.png" alt="Creatina Monohidratada" />
+            <h4>Creatina Monohidratada</h4>
+            <p class="precios">$499</p>
+            <button class="estilos">Agregar al carrito</button>
+        </div>
+        <div class="tarjetas">
+            <img src="preentreno.png" alt="Preentreno" />
+            <h4>Pre-entreno</h4>
+            <p class="precios">$699</p>
+            <button class="estilos">Agregar al carrito</button>
+        </div>
+    </div>
+</section>
+
+<section id="ofertas" class="ofertas">
+    <h3>Promoción especial</h3>
+    <p>¡2X1 en Proteína Whey hasta el domingo!</p>
+    <button class="estilos white">Aprovechar Promo</button>
+</section>
+
+<section id="contacto" class="contacto">
+    <h3>Contáctanos</h3>
+    <form>
+        <input type="text" placeholder="Nombre" />
+        <input type="email" id="email" required placeholder="Correo" />
+        <textarea placeholder="Mensaje"></textarea>
+        <button class="estilos">Enviar</button>
+    </form>
+</section>
+
+<footer class="pdp">
+    TIENDA DE SUPLEMENTOS #515151515
+</footer>
+
+<div id="ventanaCarrito" class="ventana">
+    <div class="ventana-content">
+        <span class="cerrar">x</span>
+        <h3>Carrito de compras</h3>
+        <div id="carrito-items"></div>
+        <p id="totalCompra"><strong>Total: $0</strong></p>
+        <button id="btnComprar" class="btn2-comprar">Comprar</button>
+    </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
