@@ -10,11 +10,14 @@
 <body>
 
 <header class="ssup">
-    <h1 class="logos">SupleShop</h1>
+    <a href="index.html" class="logo-link">
+        <h1 class="logos">SupleShop</h1>
+    </a>
+    
     <nav class="navegación">
-        <a href="#productos">Productos</a>
-        <a href="#promos">Promociones</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#" id="navProductos">Productos</a>
+        <a href="#" id="navPromos">Promociones</a>
+        <a href="#" id="navContacto">Contacto</a>
     </nav>
     <button class="estilos carrito">
         <img src="carrito.png" alt="Carrito" class="icono-carrito">
@@ -25,47 +28,37 @@
 <section class="sprin">
     <h2>Impulsa tu Rendimiento</h2>
     <p>Suplementos de alta calidad para alcanzar tus metas fitness</p>
-    <button class="estilos">Comprar Ahora</button>
+    <button class="estilos" id="btnBannerComprar">Comprar Ahora</button>
 </section>
 
-<section id="productos" class="productos">
-    <h3>Nuestros productos</h3>
+<section class="productos">
+    <h3>Nuestros destacados</h3>
     <div class="filas">
         <div class="tarjetas">
             <img src="proteína gold standard.png" alt="Proteína de suero" />
             <h4>Proteína de suero</h4>
             <p class="precios">$899</p>
-            <button class="estilos">Agregar al carrito</button>
+            <button class="estilos btn-agregar-carrito">Agregar al carrito</button>
         </div>
         <div class="tarjetas">
             <img src="creatina on.png" alt="Creatina Monohidratada" />
             <h4>Creatina Monohidratada</h4>
             <p class="precios">$499</p>
-            <button class="estilos">Agregar al carrito</button>
+            <button class="estilos btn-agregar-carrito">Agregar al carrito</button>
         </div>
         <div class="tarjetas">
             <img src="preentreno.png" alt="Preentreno" />
             <h4>Pre-entreno</h4>
             <p class="precios">$699</p>
-            <button class="estilos">Agregar al carrito</button>
+            <button class="estilos btn-agregar-carrito">Agregar al carrito</button>
         </div>
     </div>
 </section>
 
-<section id="ofertas" class="ofertas">
+<section class="ofertas">
     <h3>Promoción especial</h3>
     <p>¡2X1 en Proteína Whey hasta el domingo!</p>
-    <button class="estilos white">Aprovechar Promo</button>
-</section>
-
-<section id="contacto" class="contacto">
-    <h3>Contáctanos</h3>
-    <form>
-        <input type="text" placeholder="Nombre" />
-        <input type="email" id="email" required placeholder="Correo" />
-        <textarea placeholder="Mensaje"></textarea>
-        <button class="estilos">Enviar</button>
-    </form>
+    <button class="estilos white" id="btnOfertaHome">Aprovechar Promo</button>
 </section>
 
 <footer class="pdp">
@@ -74,11 +67,174 @@
 
 <div id="ventanaCarrito" class="ventana">
     <div class="ventana-content">
-        <span class="cerrar">x</span>
+        <span class="cerrar" data-modal="ventanaCarrito">x</span>
         <h3>Carrito de compras</h3>
         <div id="carrito-items"></div>
         <p id="totalCompra"><strong>Total: $0</strong></p>
         <button id="btnComprar" class="btn2-comprar">Comprar</button>
+    </div>
+</div>
+
+<div id="modalProductos" class="ventana">
+    <div class="ventana-content modal-grande">
+        <span class="cerrar" data-modal="modalProductos">x</span>
+        <h3>Catálogo Completo</h3>
+        <div class="grid-productos-10">
+            
+            <div class="tarjetas tarjeta-modal">
+                <img src="C4proteina.png" alt="Producto 1" />
+                <h4>Proteina C4</h4>
+                <p class="precios">$1280</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="CBUMprote.png" alt="Producto 2" />
+                <h4>Proteina BUM</h4>
+                <p class="precios">$850</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="Dymatizeprote.png" alt="Producto 3" />
+                <h4>Proteina Dymatize</h4>
+                <p class="precios">$1499</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="Ghostprote.png" alt="Producto 4" />
+                <h4>Proteina Ghost</h4>
+                <p class="precios">$810</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="evogenprote.png" alt="Producto 5" />
+                <h4>Proteina Evogen</h4>
+                <p class="precios">$975</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="PreUP.png" alt="Producto 6" />
+                <h4>Preentreno Bucked Up</h4>
+                <p class="precios">$520</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="C4pre.png" alt="Producto 7" />
+                <h4>Preentreno C4</h4>
+                <p class="precios">$450</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="CBUMpre.png" alt="Producto 8" />
+                <h4>Preentreno BUM</h4>
+                <p class="precios">$525</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="Demonpre.png" alt="Producto 9" />
+                <h4>Preentreno Demon</h4>
+                <p class="precios">$395</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="Ghostpre.png" alt="Producto 10" />
+                <h4>Preentreno Ghost</h4>
+                <p class="precios">$695</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="AminoOn.png" alt="Producto 11" />
+                <h4>Aminoacido ON</h4>
+                <p class="precios">$765</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+            <div class="tarjetas tarjeta-modal">
+                <img src="EAAsGat.png" alt="Producto 12" />
+                <h4>EAAs GAT</h4>
+                <p class="precios">$495</p>
+                <button class="estilos btn-agregar-carrito">Agregar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="modalPromos" class="ventana">
+    <div class="ventana-content modal-promos-content">
+        <span class="cerrar" data-modal="modalPromos">x</span>
+        <h3 style="color: #d50000; font-size: 28px;">¡OFERTAS IMPERDIBLES!</h3>
+        <div class="grid-promos-3">
+            
+            <div class="tarjetas tarjeta-promo">
+                <div class="etiqueta-oferta">HOT</div>
+                <img src="GoldISO.png" alt="Oferta 1" />
+                <h4>Proteina Gold ISO</h4>
+                <div class="precios-oferta">
+                    <span class="precio-viejo">$1880</span>
+                    <span class="precio-nuevo">$1695</span>
+                </div>
+                <button class="estilos btn-agregar-carrito">¡Lo quiero!</button>
+            </div>
+
+            <div class="tarjetas tarjeta-promo">
+                <div class="etiqueta-oferta">HOT</div>
+                <img src="EVPpre.png" alt="Oferta 2" />
+                <h4>Preentreno EVP</h4>
+                <div class="precios-oferta">
+                    <span class="precio-viejo">$550</span>
+                    <span class="precio-nuevo">$495</span>
+                </div>
+                <button class="estilos btn-agregar-carrito">¡Lo quiero!</button>
+            </div>
+
+            <div class="tarjetas tarjeta-promo">
+                <div class="etiqueta-oferta">HOT</div>
+                <img src="Rysebcaas.png" alt="Oferta 3" />
+                <h4>BCAAS Ryse</h4>
+                <div class="precios-oferta">
+                    <span class="precio-viejo">$670</span>
+                    <span class="precio-nuevo">$599</span>
+                </div>
+                <button class="estilos btn-agregar-carrito">¡Lo quiero!</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="modalContacto" class="ventana">
+    <div class="ventana-content">
+        <span class="cerrar" data-modal="modalContacto">x</span>
+        <h3>¿Te interesa algún producto o promoción? Contáctanos</h3>
+        <form id="formContacto">
+            <input type="text" placeholder="Nombre completo" required />
+            <input type="email" placeholder="Correo electrónico" required />
+            
+            <input 
+                type="tel" 
+                id="inputTelefono"
+                placeholder="Número de Teléfono (10 dígitos)" 
+                pattern="[0-9]{10}" 
+                minlength="10"
+                maxlength="10"
+                title="Por favor ingresa un número de 10 dígitos"
+                required 
+            />
+            
+            <textarea placeholder="Escribe tu mensaje aquí... (Opcional)" rows="4"></textarea>
+            
+            <button type="submit" class="estilos">Enviar</button>
+        </form>
     </div>
 </div>
 

@@ -2,12 +2,17 @@ console.log("Página de Suplementos cargada");
 
 const contador = document.querySelector(".contador");
 const botonCarrito = document.querySelector(".carrito");
-const botonesAgregar = document.querySelectorAll(".tarjetas .estilos");
 
-const modal = document.getElementById("ventanaCarrito");
-const cerrarModal = document.querySelector(".cerrar");
+const modalCarrito = document.getElementById("ventanaCarrito");
+const modalProductos = document.getElementById("modalProductos");
+const modalPromos = document.getElementById("modalPromos");
+const modalContacto = document.getElementById("modalContacto");
+
+const botonesCerrar = document.querySelectorAll(".cerrar");
+
 const carritoItems = document.getElementById("carrito-items");
 const totalCompra = document.getElementById("totalCompra");
+const btnComprarCarrito = document.getElementById("btnComprar");
 
 let carrito = [];
 
@@ -25,8 +30,12 @@ function renderCarrito() {
         const div = document.createElement("div");
         div.className = "cart-item"; 
         
+        const imgTag = item.imagen 
+            ? `<img src="${item.imagen}" alt="${item.nombre}">` 
+            : `<div style="width:50px;height:50px;background:#ccc;display:flex;align-items:center;justify-content:center;font-size:8px;">Sin img</div>`;
+
         div.innerHTML = `
-            <img src="${item.imagen}" alt="${item.nombre}">
+            ${imgTag}
             <div class="cart-info">
                 <span>${item.nombre}</span>
                 <span class="cart-precio">${formateaPrecio(item.precio)}</span>
@@ -40,33 +49,81 @@ function renderCarrito() {
     contador.textContent = carrito.length;
 }
 
-botonesAgregar.forEach(boton => {
-    boton.addEventListener("click", (e) => {
-        const tarjeta = e.currentTarget.closest(".tarjetas");
+function agregarAlCarrito(nombre, precio, imagen) {
+    carrito.push({ nombre, precio, imagen });
+    contador.textContent = carrito.length;
+    if (modalCarrito.style.display === "block") renderCarrito();
+    console.log(`Agregado: ${nombre}`);
+}
+
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-agregar-carrito")) {
+        const tarjeta = e.target.closest(".tarjetas");
         
         const nombre = tarjeta.querySelector("h4").textContent;
-        const precio = parseFloat(tarjeta.querySelector(".precios").textContent.replace("$",""));
-        const imagen = tarjeta.querySelector("img").getAttribute("src");
-
-        carrito.push({ nombre, precio, imagen });
-
-        contador.textContent = carrito.length;
+        const precioNuevoObj = tarjeta.querySelector(".precio-nuevo");
+        const precioNormalObj = tarjeta.querySelector(".precios");
         
-        if (modal.style.display === "block") renderCarrito(); 
-    });
+        let precioTexto = "0";
+        if (precioNuevoObj) {
+            precioTexto = precioNuevoObj.textContent;
+        } else if (precioNormalObj) {
+            precioTexto = precioNormalObj.textContent;
+        }
+
+        const precio = parseFloat(precioTexto.replace("$","").replace("MXN",""));
+        
+        const imgTag = tarjeta.querySelector("img");
+        const imagen = imgTag ? imgTag.getAttribute("src") : null;
+
+        agregarAlCarrito(nombre, precio, imagen);
+        alert(`¡${nombre} agregado al carrito!`);
+    }
 });
+
+const navProductos = document.getElementById("navProductos");
+const navPromos = document.getElementById("navPromos");
+const navContacto = document.getElementById("navContacto");
+const btnBannerComprar = document.getElementById("btnBannerComprar");
+const btnOfertaHome = document.getElementById("btnOfertaHome");
+
+function abrirModal(modal) {
+    modal.style.display = "block";
+}
+
+function cerrarTodo() {
+    modalCarrito.style.display = "none";
+    modalProductos.style.display = "none";
+    modalPromos.style.display = "none";
+    modalContacto.style.display = "none";
+}
+
+navProductos.addEventListener("click", (e) => { e.preventDefault(); abrirModal(modalProductos); });
+navPromos.addEventListener("click", (e) => { e.preventDefault(); abrirModal(modalPromos); });
+navContacto.addEventListener("click", (e) => { e.preventDefault(); abrirModal(modalContacto); });
 
 botonCarrito.addEventListener("click", () => {
     renderCarrito();
-    modal.style.display = "block";
+    abrirModal(modalCarrito);
 });
 
-cerrarModal.addEventListener("click", () => {
-    modal.style.display = "none";
+if(btnBannerComprar) {
+    btnBannerComprar.addEventListener("click", () => abrirModal(modalProductos));
+}
+if(btnOfertaHome) {
+    btnOfertaHome.addEventListener("click", () => abrirModal(modalPromos));
+}
+
+botonesCerrar.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        e.target.closest(".ventana").style.display = "none";
+    });
 });
 
 window.addEventListener("click", (e) => {
-    if (e.target === modal) modal.style.display = "none";
+    if (e.target.classList.contains("ventana")) {
+        e.target.style.display = "none";
+    }
 });
 
 carritoItems.addEventListener("click", (e) => {
@@ -77,17 +134,34 @@ carritoItems.addEventListener("click", (e) => {
     }
 });
 
-const btnComprar = document.getElementById("btnComprar");
-
-btnComprar.addEventListener("click", () => {
+btnComprarCarrito.addEventListener("click", () => {
     if (carrito.length === 0) {
         alert("Tu carrito está vacío.");
         return;
     }
-
     alert("¡Gracias por tu compra!");
-
     carrito = [];
     renderCarrito();
-    modal.style.display = "none";
+    modalCarrito.style.display = "none";
 });
+
+const formContacto = document.getElementById("formContacto");
+const inputTelefono = document.getElementById("inputTelefono");
+
+
+if(inputTelefono){
+    inputTelefono.addEventListener("input", function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+}
+
+if(formContacto) {
+    formContacto.addEventListener("submit", (e) => {
+        e.preventDefault(); 
+        
+        alert("Gracias por enviar tu comentario. Nosotros te contactaremos.");
+        
+        formContacto.reset();
+        modalContacto.style.display = "none";
+    });
+}
