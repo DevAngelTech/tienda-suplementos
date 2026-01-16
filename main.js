@@ -165,3 +165,18 @@ if(formContacto) {
         modalContacto.style.display = "none";
     });
 }
+
+const btnMenu = document.getElementById("btnMenu");
+const menuNav = document.getElementById("navMenu");
+
+if(btnMenu && menuNav) {
+    btnMenu.addEventListener("click", () => {
+        menuNav.classList.toggle("activo");
+    });
+
+    menuNav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            menuNav.classList.remove("activo");
+        });
+    });
+}

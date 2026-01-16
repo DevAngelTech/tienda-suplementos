@@ -360,3 +360,72 @@ body {
     padding: 24px;
     margin-top: 40px;
 }
+
+.boton-menu-movil {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: #d50000;
+}
+
+@media (max-width: 768px) {
+    
+    .ssup {
+        padding: 10px 20px;
+        justify-content: space-between; 
+    }
+
+    .boton-menu-movil {
+        display: block; 
+        order: 2; 
+    }
+
+    .carrito {
+        order: 3;
+    }
+
+    .navegación {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        border-top: 1px solid #eee;
+        z-index: 999;
+    }
+
+    .navegación.activo {
+        display: flex;
+    }
+
+    .navegación a {
+        margin: 15px 0;
+        font-size: 18px;
+        border-bottom: 1px solid #f9f9f9;
+        padding-bottom: 10px;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .navegación a:last-child { border-bottom: none; }
+
+    .sprin h2 { font-size: 28px; }
+    .sprin p { font-size: 16px; }
+    
+    .ventana-content { 
+        width: 85%; 
+        padding: 20px; 
+        margin: 10% auto;
+    }
+    
+    .grid-productos-10 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
