@@ -6,6 +6,29 @@ body {
     color: black;
 }
 
+.top-promo-bar {
+    background: #000; 
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    position: relative;
+    z-index: 1001;
+    border-bottom: 2px solid #d50000;
+}
+
+.top-promo-bar a {
+    color: #FFD700; 
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.top-promo-bar a:hover {
+    color: white;
+}
+
 .logo-link {
     text-decoration: none;
 }
@@ -142,7 +165,7 @@ body {
     font-size: 12px;
 }
 .img-placeholder::after {
-    content: "Imagen aquí";
+    content: "Imagen aqui";
 }
 
 .tarjetas:hover { 
@@ -368,6 +391,12 @@ body {
     font-size: 30px;
     cursor: pointer;
     color: #d50000;
+}
+
+#modal2x1 .ventana-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 450px;
 }
 
 @media (max-width: 768px) {

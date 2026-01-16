@@ -16,11 +16,58 @@ const btnComprarCarrito = document.getElementById("btnComprar");
 
 let carrito = [];
 
+const NOMBRE_PROMO = "Proteina Ghost";
+const PRECIO_PROMO = 810;
+
 function formateaPrecio(n) {
     return `$MXN ${n.toFixed(2)}`;
 }
 
+function organizarCarrito() {
+    const descuentos = carrito.filter(item => item.precio < 0);
+    const productos = carrito.filter(item => item.precio >= 0);
+
+    let grupos = {};
+    let ordenNombres = [];
+
+    productos.forEach(item => {
+        if (!grupos[item.nombre]) {
+            grupos[item.nombre] = [];
+            ordenNombres.push(item.nombre);
+        }
+        grupos[item.nombre].push(item);
+    });
+
+    let nuevoCarrito = [];
+    ordenNombres.forEach(nombre => {
+        nuevoCarrito.push(...grupos[nombre]);
+
+        if (nombre === NOMBRE_PROMO) {
+            nuevoCarrito.push(...descuentos);
+        }
+    });
+
+    carrito = nuevoCarrito;
+}
+
+function actualizarDescuentos() {
+    carrito = carrito.filter(item => item.precio >= 0);
+
+    const cantidadPromo = carrito.filter(item => item.nombre === NOMBRE_PROMO).length;
+    const descuentosAplicar = Math.floor(cantidadPromo / 2);
+
+    for (let i = 0; i < descuentosAplicar; i++) {
+        carrito.push({
+            nombre: `Aplicando descuento 2x1 en ${NOMBRE_PROMO}`,
+            precio: -PRECIO_PROMO,
+            imagen: null
+        });
+    }
+}
+
 function renderCarrito() {
+    organizarCarrito();
+
     carritoItems.innerHTML = "";
     let total = 0;
 
@@ -32,13 +79,13 @@ function renderCarrito() {
         
         const imgTag = item.imagen 
             ? `<img src="${item.imagen}" alt="${item.nombre}">` 
-            : `<div style="width:50px;height:50px;background:#ccc;display:flex;align-items:center;justify-content:center;font-size:8px;">Sin img</div>`;
+            : `<div style="width:50px;height:50px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:8px;color:black;text-align:center;font-weight:bold;">PROMO<br>2X1</div>`;
 
         div.innerHTML = `
             ${imgTag}
             <div class="cart-info">
                 <span>${item.nombre}</span>
-                <span class="cart-precio">${formateaPrecio(item.precio)}</span>
+                <span class="cart-precio" style="${item.precio < 0 ? 'color:green;' : ''}">${formateaPrecio(item.precio)}</span>
             </div>
             <button class="btn-eliminar" data-index="${index}">Eliminar</button>
         `;
@@ -51,6 +98,9 @@ function renderCarrito() {
 
 function agregarAlCarrito(nombre, precio, imagen) {
     carrito.push({ nombre, precio, imagen });
+    
+    actualizarDescuentos();
+    
     contador.textContent = carrito.length;
     if (modalCarrito.style.display === "block") renderCarrito();
     console.log(`Agregado: ${nombre}`);
@@ -129,7 +179,11 @@ window.addEventListener("click", (e) => {
 carritoItems.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn-eliminar")) {
         const i = Number(e.target.dataset.index); 
+        
         carrito.splice(i, 1);
+        
+        actualizarDescuentos();
+        
         renderCarrito();
     }
 });
@@ -180,3 +234,31 @@ if(btnMenu && menuNav) {
         });
     });
 }
+
+const linkPromo2x1 = document.getElementById("linkPromo2x1");
+const modal2x1 = document.getElementById("modal2x1");
+const btnsAgregar2x1 = document.querySelectorAll(".btn-agregar-2x1");
+
+if(linkPromo2x1) {
+    linkPromo2x1.addEventListener("click", (e) => {
+        e.preventDefault();
+        modal2x1.style.display = "block";
+    });
+}
+
+btnsAgregar2x1.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        const nombre = e.target.getAttribute("data-nombre");
+        const precioUnitario = parseFloat(e.target.getAttribute("data-precio"));
+        const imagen = e.target.getAttribute("data-imagen");
+
+        agregarAlCarrito(nombre, precioUnitario, imagen);
+        agregarAlCarrito(nombre, precioUnitario, imagen);
+
+        alert("¡Promo 2x1 Aplicada!");
+        
+        modal2x1.style.display = "none";
+        renderCarrito();
+        document.getElementById("ventanaCarrito").style.display = "block";
+    });
+});

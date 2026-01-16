@@ -9,6 +9,10 @@
 </head>
 <body>
 
+<div class="top-promo-bar" id="barraPromo">
+    <p>OFERTA FLASH: Aprovecha la promo 2x1 en el articulo de la semana. <a href="#" id="linkPromo2x1">VER PROMOCION</a></p>
+</div>
+
 <header class="ssup">
     <a href="index.html" class="logo-link">
         <h1 class="logos">SupleShop</h1>
@@ -56,12 +60,6 @@
             <button class="estilos btn-agregar-carrito">Agregar al carrito</button>
         </div>
     </div>
-</section>
-
-<section class="ofertas">
-    <h3>Promoción especial</h3>
-    <p>¡2X1 en Proteína Whey hasta el domingo!</p>
-    <button class="estilos white" id="btnOfertaHome">Aprovechar Promo</button>
 </section>
 
 <footer class="pdp">
@@ -175,7 +173,7 @@
 <div id="modalPromos" class="ventana">
     <div class="ventana-content modal-promos-content">
         <span class="cerrar" data-modal="modalPromos">x</span>
-        <h3 style="color: #d50000; font-size: 28px;">¡OFERTAS IMPERDIBLES!</h3>
+        <h3 style="color: #d50000; font-size: 28px;">OFERTAS IMPERDIBLES</h3>
         <div class="grid-promos-3">
             
             <div class="tarjetas tarjeta-promo">
@@ -186,7 +184,7 @@
                     <span class="precio-viejo">$1880</span>
                     <span class="precio-nuevo">$1695</span>
                 </div>
-                <button class="estilos btn-agregar-carrito">¡Lo quiero!</button>
+                <button class="estilos btn-agregar-carrito">Lo quiero</button>
             </div>
 
             <div class="tarjetas tarjeta-promo">
@@ -197,7 +195,7 @@
                     <span class="precio-viejo">$550</span>
                     <span class="precio-nuevo">$495</span>
                 </div>
-                <button class="estilos btn-agregar-carrito">¡Lo quiero!</button>
+                <button class="estilos btn-agregar-carrito">Lo quiero</button>
             </div>
 
             <div class="tarjetas tarjeta-promo">
@@ -208,7 +206,7 @@
                     <span class="precio-viejo">$670</span>
                     <span class="precio-nuevo">$599</span>
                 </div>
-                <button class="estilos btn-agregar-carrito">¡Lo quiero!</button>
+                <button class="estilos btn-agregar-carrito">Lo quiero</button>
             </div>
 
         </div>
@@ -218,26 +216,53 @@
 <div id="modalContacto" class="ventana">
     <div class="ventana-content">
         <span class="cerrar" data-modal="modalContacto">x</span>
-        <h3>¿Te interesa algún producto o promoción? Contáctanos</h3>
+        <h3>Te interesa algun producto o promocion? Contactanos</h3>
         <form id="formContacto">
             <input type="text" placeholder="Nombre completo" required />
-            <input type="email" placeholder="Correo electrónico" required />
+            <input type="email" placeholder="Correo electronico" required />
             
             <input 
                 type="tel" 
                 id="inputTelefono"
-                placeholder="Número de Teléfono (10 dígitos)" 
+                placeholder="Numero de Telefono (10 digitos)" 
                 pattern="[0-9]{10}" 
                 minlength="10"
                 maxlength="10"
-                title="Por favor ingresa un número de 10 dígitos"
+                title="Por favor ingresa un numero de 10 digitos"
                 required 
             />
             
-            <textarea placeholder="Escribe tu mensaje aquí... (Opcional)" rows="4"></textarea>
+            <textarea placeholder="Escribe tu mensaje aqui... (Opcional)" rows="4"></textarea>
             
             <button type="submit" class="estilos">Enviar</button>
         </form>
+    </div>
+</div>
+
+<div id="modal2x1" class="ventana">
+    <div class="ventana-content" style="text-align: center; border: 3px solid #FFD700;">
+        <span class="cerrar" data-modal="modal2x1">x</span>
+        
+        <h2 style="color: #d50000; text-transform: uppercase;">Llevate 2 y paga 1</h2>
+        <p style="font-size: 18px; color: #555;">La Proteina Ghost tiene la oferta especial de la semana. Agrega 2 y la segunda es gratis.</p>
+        
+        <div class="tarjetas" style="box-shadow: none; border: none; margin: 20px auto; max-width: 300px;">
+            <img src="Ghostprote.png" alt="Producto Promo" id="imgPromo2x1" style="height: 250px; object-fit: contain;">
+            
+            <h4 id="nombrePromo2x1">Proteina Ghost</h4>
+            
+            <div class="precios-oferta">
+                <span class="precio-nuevo" style="font-size: 2rem;">$810</span>
+                <p style="font-size: 14px; color: gray;">(Precio Regular por unidad)</p>
+            </div>
+
+            <button class="estilos btn-agregar-2x1" 
+                data-nombre="Proteina Ghost" 
+                data-precio="810"
+                data-imagen="Ghostprote.png">
+                ¡AGREGAR 2 Y PAGAR 1!
+            </button>
+        </div>
     </div>
 </div>
 
