@@ -262,3 +262,12 @@ btnsAgregar2x1.forEach(btn => {
         document.getElementById("ventanaCarrito").style.display = "block";
     });
 });
+
+const inputMensaje = document.getElementById("inputMensaje");
+
+if (inputMensaje) {
+    inputMensaje.addEventListener("input", function() {
+        this.style.height = "auto"; 
+        this.style.height = (this.scrollHeight) + "px"; 
+    });
+}

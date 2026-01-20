@@ -293,6 +293,12 @@ body {
     background: white;
 }
 
+#formContacto textarea {
+    resize: none;
+    overflow-y: hidden;
+    min-height: 80px;
+}
+
 @keyframes aparecer {
     from {transform: translateY(-30px); opacity: 0;}
     to {transform: translateY(0); opacity: 1;}

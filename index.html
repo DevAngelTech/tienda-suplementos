@@ -218,13 +218,13 @@
         <span class="cerrar" data-modal="modalContacto">x</span>
         <h3>Te interesa algun producto o promocion? Contactanos</h3>
         <form id="formContacto">
-            <input type="text" placeholder="Nombre completo" required />
-            <input type="email" placeholder="Correo electronico" required />
+            <input type="text" placeholder="Nombre completo" required maxlength="50" />
+            <input type="email" placeholder="Correo electronico" required autocomplete="email" />
             
             <input 
                 type="tel" 
                 id="inputTelefono"
-                placeholder="Numero de Telefono (10 digitos)" 
+                placeholder="Numero de Telefono" 
                 pattern="[0-9]{10}" 
                 minlength="10"
                 maxlength="10"
@@ -232,7 +232,7 @@
                 required 
             />
             
-            <textarea placeholder="Escribe tu mensaje aqui... (Opcional)" rows="4"></textarea>
+            <textarea id="inputMensaje" placeholder="Escribe tu mensaje aqui..." maxlength="300" rows="3"></textarea>
             
             <button type="submit" class="estilos">Enviar</button>
         </form>
