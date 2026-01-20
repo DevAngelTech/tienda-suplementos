@@ -1,273 +1,265 @@
-console.log("Página de Suplementos cargada");
-
-const contador = document.querySelector(".contador");
-const botonCarrito = document.querySelector(".carrito");
-
-const modalCarrito = document.getElementById("ventanaCarrito");
-const modalProductos = document.getElementById("modalProductos");
-const modalPromos = document.getElementById("modalPromos");
-const modalContacto = document.getElementById("modalContacto");
-
-const botonesCerrar = document.querySelectorAll(".cerrar");
-
-const carritoItems = document.getElementById("carrito-items");
-const totalCompra = document.getElementById("totalCompra");
-const btnComprarCarrito = document.getElementById("btnComprar");
-
-let carrito = [];
-
-const NOMBRE_PROMO = "Proteina Ghost";
-const PRECIO_PROMO = 810;
-
-function formateaPrecio(n) {
-    return `$MXN ${n.toFixed(2)}`;
-}
-
-function organizarCarrito() {
-    const descuentos = carrito.filter(item => item.precio < 0);
-    const productos = carrito.filter(item => item.precio >= 0);
-
-    let grupos = {};
-    let ordenNombres = [];
-
-    productos.forEach(item => {
-        if (!grupos[item.nombre]) {
-            grupos[item.nombre] = [];
-            ordenNombres.push(item.nombre);
-        }
-        grupos[item.nombre].push(item);
-    });
-
-    let nuevoCarrito = [];
-    ordenNombres.forEach(nombre => {
-        nuevoCarrito.push(...grupos[nombre]);
-
-        if (nombre === NOMBRE_PROMO) {
-            nuevoCarrito.push(...descuentos);
-        }
-    });
-
-    carrito = nuevoCarrito;
-}
-
-function actualizarDescuentos() {
-    carrito = carrito.filter(item => item.precio >= 0);
-
-    const cantidadPromo = carrito.filter(item => item.nombre === NOMBRE_PROMO).length;
-    const descuentosAplicar = Math.floor(cantidadPromo / 2);
-
-    for (let i = 0; i < descuentosAplicar; i++) {
-        carrito.push({
-            nombre: `Aplicando descuento 2x1 en ${NOMBRE_PROMO}`,
-            precio: -PRECIO_PROMO,
-            imagen: null
-        });
-    }
-}
-
-function renderCarrito() {
-    organizarCarrito();
-
-    carritoItems.innerHTML = "";
-    let total = 0;
-
-    carrito.forEach((item, index) => {
-        total += item.precio;
-
-        const div = document.createElement("div");
-        div.className = "cart-item"; 
-        
-        const imgTag = item.imagen 
-            ? `<img src="${item.imagen}" alt="${item.nombre}">` 
-            : `<div style="width:50px;height:50px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:8px;color:black;text-align:center;font-weight:bold;">PROMO<br>2X1</div>`;
-
-        div.innerHTML = `
-            ${imgTag}
-            <div class="cart-info">
-                <span>${item.nombre}</span>
-                <span class="cart-precio" style="${item.precio < 0 ? 'color:green;' : ''}">${formateaPrecio(item.precio)}</span>
-            </div>
-            <button class="btn-eliminar" data-index="${index}">Eliminar</button>
-        `;
-        carritoItems.appendChild(div);
-    });
-
-    totalCompra.innerHTML = `<strong>Total: ${formateaPrecio(total)}</strong>`;
-    contador.textContent = carrito.length;
-}
-
-function agregarAlCarrito(nombre, precio, imagen) {
-    carrito.push({ nombre, precio, imagen });
+document.addEventListener('DOMContentLoaded', () => {
     
-    actualizarDescuentos();
-    
-    contador.textContent = carrito.length;
-    if (modalCarrito.style.display === "block") renderCarrito();
-    console.log(`Agregado: ${nombre}`);
-}
+    const state = {
+        carrito: [],
+        promo: {
+            name: "Proteina Ghost",
+            price: 810,
+            image: "Ghostprote.png"
+        }
+    };
 
-document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btn-agregar-carrito")) {
-        const tarjeta = e.target.closest(".tarjetas");
+    const ui = {
+        contador: document.getElementById("contadorCarrito"),
+        btnCarrito: document.getElementById("btnCarrito"),
+        btnMenu: document.getElementById("btnMenu"),
+        navMenu: document.getElementById("navMenu"),
+        navLinks: document.querySelectorAll(".nav-link"),
+        carritoItems: document.getElementById("carrito-items"),
+        totalCompra: document.getElementById("totalCompra"),
+        btnComprar: document.getElementById("btnComprar"),
+        formContacto: document.getElementById("formContacto"),
+        inputTelefono: document.getElementById("inputTelefono"),
+        inputMensaje: document.getElementById("inputMensaje"),
+        linkPromo2x1: document.getElementById("linkPromo2x1"),
+        btnBannerComprar: document.getElementById("btnBannerComprar"),
+        modals: {
+            carrito: document.getElementById("ventanaCarrito"),
+            productos: document.getElementById("modalProductos"),
+            promos: document.getElementById("modalPromos"),
+            contacto: document.getElementById("modalContacto"),
+            promo2x1: document.getElementById("modal2x1")
+        },
+        closeButtons: document.querySelectorAll(".cerrar")
+    };
+
+    function init() {
+        setupEventListeners();
+    }
+
+    function formatPrice(amount) {
+        return `$MXN ${amount.toFixed(2)}`;
+    }
+
+    function updateCartLogic() {
+        const discounts = state.carrito.filter(item => item.precio < 0);
+        const products = state.carrito.filter(item => item.precio >= 0);
+
+        let groups = {};
+        let order = [];
+
+        products.forEach(item => {
+            if (!groups[item.nombre]) {
+                groups[item.nombre] = [];
+                order.push(item.nombre);
+            }
+            groups[item.nombre].push(item);
+        });
+
+        let newCart = [];
+        order.forEach(name => {
+            newCart.push(...groups[name]);
+            if (name === state.promo.name) {
+                newCart.push(...discounts);
+            }
+        });
+
+        state.carrito = newCart;
+    }
+
+    function calculateDiscounts() {
+        state.carrito = state.carrito.filter(item => item.precio >= 0);
         
-        const nombre = tarjeta.querySelector("h4").textContent;
-        const precioNuevoObj = tarjeta.querySelector(".precio-nuevo");
-        const precioNormalObj = tarjeta.querySelector(".precios");
+        const promoCount = state.carrito.filter(item => item.nombre === state.promo.name).length;
+        const discountCount = Math.floor(promoCount / 2);
+
+        for (let i = 0; i < discountCount; i++) {
+            state.carrito.push({
+                nombre: `Aplicando descuento 2x1 en ${state.promo.name}`,
+                precio: -state.promo.price,
+                imagen: null
+            });
+        }
+    }
+
+    function renderCart() {
+        updateCartLogic();
         
-        let precioTexto = "0";
-        if (precioNuevoObj) {
-            precioTexto = precioNuevoObj.textContent;
-        } else if (precioNormalObj) {
-            precioTexto = precioNormalObj.textContent;
+        ui.carritoItems.innerHTML = "";
+        let total = 0;
+
+        state.carrito.forEach((item, index) => {
+            total += item.precio;
+            
+            const div = document.createElement("div");
+            div.className = "cart-item";
+            
+            const imgHTML = item.imagen 
+                ? `<img src="${item.imagen}" alt="${item.nombre}">`
+                : `<div style="width:50px;height:50px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:8px;color:black;text-align:center;font-weight:bold;">PROMO<br>2X1</div>`;
+
+            div.innerHTML = `
+                ${imgHTML}
+                <div class="cart-info">
+                    <span>${item.nombre}</span>
+                    <span class="cart-precio" style="${item.precio < 0 ? 'color:green;' : ''}">${formatPrice(item.precio)}</span>
+                </div>
+                <button class="btn-eliminar" data-index="${index}">Eliminar</button>
+            `;
+            ui.carritoItems.appendChild(div);
+        });
+
+        ui.totalCompra.innerHTML = `<strong>Total: ${formatPrice(total)}</strong>`;
+        
+        // CORRECCIÓN: Solo contamos los ítems con precio positivo (productos reales)
+        ui.contador.textContent = state.carrito.filter(item => item.precio >= 0).length;
+    }
+
+    function addToCart(nombre, precio, imagen) {
+        state.carrito.push({ nombre, precio, imagen });
+        calculateDiscounts();
+        
+        // CORRECCIÓN: Solo contamos los ítems con precio positivo (productos reales)
+        ui.contador.textContent = state.carrito.filter(item => item.precio >= 0).length;
+        
+        if (ui.modals.carrito.style.display === "block") {
+            renderCart();
+        }
+    }
+
+    function openModal(modalId) {
+        if(ui.modals[modalId]) {
+            ui.modals[modalId].style.display = "block";
+        }
+    }
+
+    function closeModal(modal) {
+        modal.style.display = "none";
+    }
+
+    function setupEventListeners() {
+        
+        document.addEventListener("click", (e) => {
+            if (e.target.classList.contains("btn-agregar-carrito")) {
+                const card = e.target.closest(".tarjetas");
+                const name = card.querySelector("h4").textContent;
+                
+                const priceNew = card.querySelector(".precio-nuevo");
+                const priceNormal = card.querySelector(".precios");
+                
+                let priceText = "0";
+                if (priceNew) priceText = priceNew.textContent;
+                else if (priceNormal) priceText = priceNormal.textContent;
+
+                const price = parseFloat(priceText.replace("$","").replace("MXN",""));
+                const img = card.querySelector("img") ? card.querySelector("img").getAttribute("src") : null;
+
+                addToCart(name, price, img);
+                alert(`¡${name} agregado al carrito!`);
+            }
+
+            if (e.target.classList.contains("btn-agregar-2x1")) {
+                const name = e.target.dataset.nombre;
+                const price = parseFloat(e.target.dataset.precio);
+                const img = e.target.dataset.imagen;
+
+                addToCart(name, price, img);
+                addToCart(name, price, img);
+                alert("¡Promo 2x1 Aplicada!");
+                
+                closeModal(ui.modals.promo2x1);
+                renderCart();
+                openModal('carrito');
+            }
+        });
+
+        ui.carritoItems.addEventListener("click", (e) => {
+            if (e.target.classList.contains("btn-eliminar")) {
+                const idx = Number(e.target.dataset.index);
+                state.carrito.splice(idx, 1);
+                calculateDiscounts();
+                renderCart();
+            }
+        });
+
+        ui.btnCarrito.addEventListener("click", () => {
+            renderCart();
+            openModal('carrito');
+        });
+
+        ui.closeButtons.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const modal = e.target.closest(".ventana");
+                closeModal(modal);
+            });
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target.classList.contains("ventana")) {
+                closeModal(e.target);
+            }
+        });
+
+        ui.btnMenu.addEventListener("click", () => {
+            ui.navMenu.classList.toggle("activo");
+        });
+
+        ui.navLinks.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                ui.navMenu.classList.remove("activo");
+                const target = e.target.dataset.target;
+                
+                if (target === "modalProductos") openModal('productos');
+                if (target === "modalPromos") openModal('promos');
+                if (target === "modalContacto") openModal('contacto');
+            });
+        });
+
+        if (ui.btnBannerComprar) {
+            ui.btnBannerComprar.addEventListener("click", () => openModal('productos'));
         }
 
-        const precio = parseFloat(precioTexto.replace("$","").replace("MXN",""));
-        
-        const imgTag = tarjeta.querySelector("img");
-        const imagen = imgTag ? imgTag.getAttribute("src") : null;
+        if (ui.linkPromo2x1) {
+            ui.linkPromo2x1.addEventListener("click", (e) => {
+                e.preventDefault();
+                openModal('promo2x1');
+            });
+        }
 
-        agregarAlCarrito(nombre, precio, imagen);
-        alert(`¡${nombre} agregado al carrito!`);
-    }
-});
-
-const navProductos = document.getElementById("navProductos");
-const navPromos = document.getElementById("navPromos");
-const navContacto = document.getElementById("navContacto");
-const btnBannerComprar = document.getElementById("btnBannerComprar");
-const btnOfertaHome = document.getElementById("btnOfertaHome");
-
-function abrirModal(modal) {
-    modal.style.display = "block";
-}
-
-function cerrarTodo() {
-    modalCarrito.style.display = "none";
-    modalProductos.style.display = "none";
-    modalPromos.style.display = "none";
-    modalContacto.style.display = "none";
-}
-
-navProductos.addEventListener("click", (e) => { e.preventDefault(); abrirModal(modalProductos); });
-navPromos.addEventListener("click", (e) => { e.preventDefault(); abrirModal(modalPromos); });
-navContacto.addEventListener("click", (e) => { e.preventDefault(); abrirModal(modalContacto); });
-
-botonCarrito.addEventListener("click", () => {
-    renderCarrito();
-    abrirModal(modalCarrito);
-});
-
-if(btnBannerComprar) {
-    btnBannerComprar.addEventListener("click", () => abrirModal(modalProductos));
-}
-if(btnOfertaHome) {
-    btnOfertaHome.addEventListener("click", () => abrirModal(modalPromos));
-}
-
-botonesCerrar.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        e.target.closest(".ventana").style.display = "none";
-    });
-});
-
-window.addEventListener("click", (e) => {
-    if (e.target.classList.contains("ventana")) {
-        e.target.style.display = "none";
-    }
-});
-
-carritoItems.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btn-eliminar")) {
-        const i = Number(e.target.dataset.index); 
-        
-        carrito.splice(i, 1);
-        
-        actualizarDescuentos();
-        
-        renderCarrito();
-    }
-});
-
-btnComprarCarrito.addEventListener("click", () => {
-    if (carrito.length === 0) {
-        alert("Tu carrito está vacío.");
-        return;
-    }
-    alert("¡Gracias por tu compra!");
-    carrito = [];
-    renderCarrito();
-    modalCarrito.style.display = "none";
-});
-
-const formContacto = document.getElementById("formContacto");
-const inputTelefono = document.getElementById("inputTelefono");
-
-
-if(inputTelefono){
-    inputTelefono.addEventListener("input", function(e) {
-        this.value = this.value.replace(/[^0-9]/g, '');
-    });
-}
-
-if(formContacto) {
-    formContacto.addEventListener("submit", (e) => {
-        e.preventDefault(); 
-        
-        alert("Gracias por enviar tu comentario. Nosotros te contactaremos.");
-        
-        formContacto.reset();
-        modalContacto.style.display = "none";
-    });
-}
-
-const btnMenu = document.getElementById("btnMenu");
-const menuNav = document.getElementById("navMenu");
-
-if(btnMenu && menuNav) {
-    btnMenu.addEventListener("click", () => {
-        menuNav.classList.toggle("activo");
-    });
-
-    menuNav.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", () => {
-            menuNav.classList.remove("activo");
+        ui.btnComprar.addEventListener("click", () => {
+            if (state.carrito.filter(item => item.precio >= 0).length === 0) {
+                alert("Tu carrito está vacío.");
+                return;
+            }
+            alert("¡Gracias por tu compra!");
+            state.carrito = [];
+            renderCart();
+            closeModal(ui.modals.carrito);
         });
-    });
-}
 
-const linkPromo2x1 = document.getElementById("linkPromo2x1");
-const modal2x1 = document.getElementById("modal2x1");
-const btnsAgregar2x1 = document.querySelectorAll(".btn-agregar-2x1");
+        if (ui.formContacto) {
+            ui.formContacto.addEventListener("submit", (e) => {
+                e.preventDefault();
+                alert("Gracias por enviar tu comentario. Nosotros te contactaremos.");
+                ui.formContacto.reset();
+                closeModal(ui.modals.contacto);
+            });
+        }
 
-if(linkPromo2x1) {
-    linkPromo2x1.addEventListener("click", (e) => {
-        e.preventDefault();
-        modal2x1.style.display = "block";
-    });
-}
+        if (ui.inputTelefono) {
+            ui.inputTelefono.addEventListener("input", function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        }
 
-btnsAgregar2x1.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        const nombre = e.target.getAttribute("data-nombre");
-        const precioUnitario = parseFloat(e.target.getAttribute("data-precio"));
-        const imagen = e.target.getAttribute("data-imagen");
+        if (ui.inputMensaje) {
+            ui.inputMensaje.addEventListener("input", function() {
+                this.style.height = "auto";
+                this.style.height = (this.scrollHeight) + "px";
+            });
+        }
+    }
 
-        agregarAlCarrito(nombre, precioUnitario, imagen);
-        agregarAlCarrito(nombre, precioUnitario, imagen);
-
-        alert("¡Promo 2x1 Aplicada!");
-        
-        modal2x1.style.display = "none";
-        renderCarrito();
-        document.getElementById("ventanaCarrito").style.display = "block";
-    });
+    init();
 });
-
-const inputMensaje = document.getElementById("inputMensaje");
-
-if (inputMensaje) {
-    inputMensaje.addEventListener("input", function() {
-        this.style.height = "auto"; 
-        this.style.height = (this.scrollHeight) + "px"; 
-    });
-}

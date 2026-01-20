@@ -21,14 +21,14 @@
     <button class="boton-menu-movil" id="btnMenu">☰</button>
 
     <nav class="navegación" id="navMenu">
-        <a href="#" id="navProductos">Productos</a>
-        <a href="#" id="navPromos">Promociones</a>
-        <a href="#" id="navContacto">Contacto</a>
+        <a href="#" class="nav-link" data-target="modalProductos">Productos</a>
+        <a href="#" class="nav-link" data-target="modalPromos">Promociones</a>
+        <a href="#" class="nav-link" data-target="modalContacto">Contacto</a>
     </nav>
 
-    <button class="estilos carrito">
+    <button class="estilos carrito" id="btnCarrito">
         <img src="carrito.png" alt="Carrito" class="icono-carrito">
-        <span class="contador">0</span>
+        <span class="contador" id="contadorCarrito">0</span>
     </button>
 </header>
 
@@ -81,91 +81,78 @@
         <span class="cerrar" data-modal="modalProductos">x</span>
         <h3>Catálogo Completo</h3>
         <div class="grid-productos-10">
-            
             <div class="tarjetas tarjeta-modal">
                 <img src="C4proteina.png" alt="Producto 1" />
                 <h4>Proteina C4</h4>
                 <p class="precios">$1280</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="CBUMprote.png" alt="Producto 2" />
                 <h4>Proteina BUM</h4>
                 <p class="precios">$850</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="Dymatizeprote.png" alt="Producto 3" />
                 <h4>Proteina Dymatize</h4>
                 <p class="precios">$1499</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="Ghostprote.png" alt="Producto 4" />
                 <h4>Proteina Ghost</h4>
                 <p class="precios">$810</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="evogenprote.png" alt="Producto 5" />
                 <h4>Proteina Evogen</h4>
                 <p class="precios">$975</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="PreUP.png" alt="Producto 6" />
                 <h4>Preentreno Bucked Up</h4>
                 <p class="precios">$520</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="C4pre.png" alt="Producto 7" />
                 <h4>Preentreno C4</h4>
                 <p class="precios">$450</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="CBUMpre.png" alt="Producto 8" />
                 <h4>Preentreno BUM</h4>
                 <p class="precios">$525</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="Demonpre.png" alt="Producto 9" />
                 <h4>Preentreno Demon</h4>
                 <p class="precios">$395</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="Ghostpre.png" alt="Producto 10" />
                 <h4>Preentreno Ghost</h4>
                 <p class="precios">$695</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="AminoOn.png" alt="Producto 11" />
                 <h4>Aminoacido ON</h4>
                 <p class="precios">$765</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
             <div class="tarjetas tarjeta-modal">
                 <img src="EAAsGat.png" alt="Producto 12" />
                 <h4>EAAs GAT</h4>
                 <p class="precios">$495</p>
                 <button class="estilos btn-agregar-carrito">Agregar</button>
             </div>
-
         </div>
     </div>
 </div>
@@ -173,9 +160,8 @@
 <div id="modalPromos" class="ventana">
     <div class="ventana-content modal-promos-content">
         <span class="cerrar" data-modal="modalPromos">x</span>
-        <h3 style="color: #d50000; font-size: 28px;">OFERTAS IMPERDIBLES</h3>
+        <h3 class="titulo-oferta">OFERTAS IMPERDIBLES</h3>
         <div class="grid-promos-3">
-            
             <div class="tarjetas tarjeta-promo">
                 <div class="etiqueta-oferta">HOT</div>
                 <img src="GoldISO.png" alt="Oferta 1" />
@@ -186,7 +172,6 @@
                 </div>
                 <button class="estilos btn-agregar-carrito">Lo quiero</button>
             </div>
-
             <div class="tarjetas tarjeta-promo">
                 <div class="etiqueta-oferta">HOT</div>
                 <img src="EVPpre.png" alt="Oferta 2" />
@@ -197,7 +182,6 @@
                 </div>
                 <button class="estilos btn-agregar-carrito">Lo quiero</button>
             </div>
-
             <div class="tarjetas tarjeta-promo">
                 <div class="etiqueta-oferta">HOT</div>
                 <img src="Rysebcaas.png" alt="Oferta 3" />
@@ -208,7 +192,6 @@
                 </div>
                 <button class="estilos btn-agregar-carrito">Lo quiero</button>
             </div>
-
         </div>
     </div>
 </div>
@@ -216,46 +199,39 @@
 <div id="modalContacto" class="ventana">
     <div class="ventana-content">
         <span class="cerrar" data-modal="modalContacto">x</span>
-        <h3>Te interesa algun producto o promocion? Contactanos</h3>
+        <h3>¿Te interesa algún producto? Contáctanos</h3>
         <form id="formContacto">
             <input type="text" placeholder="Nombre completo" required maxlength="50" />
-            <input type="email" placeholder="Correo electronico" required autocomplete="email" />
-            
+            <input type="email" placeholder="Correo electrónico" required autocomplete="email" />
             <input 
                 type="tel" 
                 id="inputTelefono"
-                placeholder="Numero de Telefono" 
+                placeholder="Número de Teléfono (10 dígitos)" 
                 pattern="[0-9]{10}" 
                 minlength="10"
                 maxlength="10"
-                title="Por favor ingresa un numero de 10 digitos"
+                title="Por favor ingresa un número de 10 dígitos"
                 required 
             />
-            
-            <textarea id="inputMensaje" placeholder="Escribe tu mensaje aqui..." maxlength="300" rows="3"></textarea>
-            
+            <textarea id="inputMensaje" placeholder="Escribe tu mensaje aquí..." maxlength="300" rows="3"></textarea>
             <button type="submit" class="estilos">Enviar</button>
         </form>
     </div>
 </div>
 
 <div id="modal2x1" class="ventana">
-    <div class="ventana-content" style="text-align: center; border: 3px solid #FFD700;">
+    <div class="ventana-content content-2x1">
         <span class="cerrar" data-modal="modal2x1">x</span>
+        <h2 class="titulo-2x1">Llevate 2 y paga 1</h2>
+        <p class="desc-2x1">La Proteina Ghost tiene la oferta especial de la semana. Agrega 2 y la segunda es gratis.</p>
         
-        <h2 style="color: #d50000; text-transform: uppercase;">Llevate 2 y paga 1</h2>
-        <p style="font-size: 18px; color: #555;">La Proteina Ghost tiene la oferta especial de la semana. Agrega 2 y la segunda es gratis.</p>
-        
-        <div class="tarjetas" style="box-shadow: none; border: none; margin: 20px auto; max-width: 300px;">
-            <img src="Ghostprote.png" alt="Producto Promo" id="imgPromo2x1" style="height: 250px; object-fit: contain;">
-            
-            <h4 id="nombrePromo2x1">Proteina Ghost</h4>
-            
+        <div class="tarjetas tarjeta-2x1">
+            <img src="Ghostprote.png" alt="Producto Promo" id="imgPromo2x1">
+            <h4>Proteina Ghost</h4>
             <div class="precios-oferta">
-                <span class="precio-nuevo" style="font-size: 2rem;">$810</span>
-                <p style="font-size: 14px; color: gray;">(Precio Regular por unidad)</p>
+                <span class="precio-nuevo precio-grande">$810</span>
+                <p class="nota-precio">(Precio Regular por unidad)</p>
             </div>
-
             <button class="estilos btn-agregar-2x1" 
                 data-nombre="Proteina Ghost" 
                 data-precio="810"
