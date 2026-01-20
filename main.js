@@ -110,16 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         ui.totalCompra.innerHTML = `<strong>Total: ${formatPrice(total)}</strong>`;
-        
-        // CORRECCIÓN: Solo contamos los ítems con precio positivo (productos reales)
         ui.contador.textContent = state.carrito.filter(item => item.precio >= 0).length;
     }
 
     function addToCart(nombre, precio, imagen) {
         state.carrito.push({ nombre, precio, imagen });
         calculateDiscounts();
-        
-        // CORRECCIÓN: Solo contamos los ítems con precio positivo (productos reales)
         ui.contador.textContent = state.carrito.filter(item => item.precio >= 0).length;
         
         if (ui.modals.carrito.style.display === "block") {
